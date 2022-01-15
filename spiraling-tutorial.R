@@ -8,7 +8,7 @@ us <- us[us$dt < "2022-01-07",]
 ymax <- max(us$new_cases_smoothed)*2
 
 # Open png export file
-png("export/spiral.png", width = 700, height = 700)
+png("export/spiral.png", width = 2800, height = 2800)
 
 # Initialize.
 spiral_initialize_by_time(xlim=c("2020-01-01 00:00:00", "2022-01-06 00:00:00"), 
@@ -25,8 +25,13 @@ spiral_track(ylim=c(0, ymax*.7),
 
 # Use a polygon instead.
 spiral_polygon(x=c(us$dt, rev(us$dt)), 
-               y=c(us$new_cases_smoothed, -rev(us$new_deaths_smoothed*100)),
+               y=c(us$new_cases_smoothed, -rev(us$new_cases_smoothed*0)),
                gp = gpar(col="#d32e2b", fill="#d32e2b50"))
+
+# Use a polygon instead.
+spiral_polygon(x=c(us$dt, rev(us$dt)),
+               y=c(us$new_deaths_smoothed*0, -rev(us$new_deaths_smoothed*100)),
+               gp = gpar(col="#2e2bd3", fill="#2e2bd350"))
 
 # Middle baseline.
 spiral_lines(x=c(us$dt[1] - days(27:1), us$dt), y=0)
